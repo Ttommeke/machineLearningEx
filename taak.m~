@@ -4,4 +4,7 @@
 data= openFilesFromDir('Drink_glass');
 [training,validation,testing]= divideAndConquer(data);
 
-%GetAmplitudeOfAcceleration(training{1}); how to use
+size(training)
+size(training)
+size(training)
+GetAmplitudeOfAcceleration()
