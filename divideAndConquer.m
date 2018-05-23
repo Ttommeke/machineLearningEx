@@ -10,11 +10,11 @@ function [training,validation,testing] = divideAndConquer(data)
 
     for i=1:datasetlength
         if randomlist(i)<=0.4*datasetlength
-           training{end+1}=(data{i}); 
+           training{end+1}=data{i};
         elseif randomlist(i)<=0.7*datasetlength
-            validation{end+1}=(data{i});
+            validation{end+1}=data{i};
         else
-            testing{end+1}=(data{i});
+            testing{end+1}=data{i};
         end
     end
 end
