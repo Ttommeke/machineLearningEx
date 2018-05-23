@@ -1,4 +1,4 @@
 %% load in data first
-function [meanAcceleration] = getGravity(data) % data contains l collumns of values
+function [meanAcceleration] = getGravity(data) % data 3XL array
     meanAcceleration= mean(data);
 end

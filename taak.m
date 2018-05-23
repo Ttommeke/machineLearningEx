@@ -4,4 +4,5 @@
 data= openFilesFromDir('Brush_teeth');
 [training,validation,testing]= divideAndConquer(data);
 
-%%[gx,gy,gz]= getGravity(training{1}{1});
+Gravity = getGravity(training{1});
+[stdev,skew] = timeDomainFeatures(training{1});
