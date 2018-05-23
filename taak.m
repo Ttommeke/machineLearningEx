@@ -5,3 +5,4 @@ data= openFilesFromDir('Drink_glass');
 [training,validation,testing]= divideAndConquer(data);
 
 %GetAmplitudeOfAcceleration(training{1}); how to use
+%%[gx,gy,gz]= getGravity(training{1}{1});
