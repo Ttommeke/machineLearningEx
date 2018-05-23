@@ -6,3 +6,5 @@ data= openFilesFromDir('Drink_glass');
 
 %GetAmplitudeOfAcceleration(training{1}); how to use
 %%[gx,gy,gz]= getGravity(training{1}{1});
+
+%RemoveDCComponent(training{1});
