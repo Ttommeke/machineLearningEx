@@ -6,7 +6,9 @@ data= openFilesFromDir('Drink_glass');
 
 
 Gravity = getGravity(training{1});
-GetAmplitudeOfAcceleration(training{1});
+GetAmplitudeOfAcceleration(training{1})
+[f25, f75] = getFrequencyDomain(training{1});
 [stdev,skew] = timeDomainFeatures(training{1});
 
 RemoveDCComponent(training{1});
+
