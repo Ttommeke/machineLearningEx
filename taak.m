@@ -10,3 +10,4 @@ GetAmplitudeOfAcceleration(training{1});
 [stdev,skew] = timeDomainFeatures(training{1});
 
 RemoveDCComponent(training{1});
+%aaaaaaaaa
