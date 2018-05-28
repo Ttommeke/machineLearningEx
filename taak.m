@@ -2,6 +2,8 @@
 
 %first step load data
 data= openFilesFromDir('Drink_glass');
+nondata = openFilesNotFromDir('Drink_glass');
+size(nondata)
 %% exercise 1
 
 %1.1: preprocessing
