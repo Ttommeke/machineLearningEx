@@ -1,5 +1,6 @@
 %% load in data first
 function [stdev,skew] = timeDomainFeatures(data)
-    stdev = std(GetAmplitudeOfAcceleration(data) );
-    skew= skewness(data);
+    ampdata = GetAmplitudeOfAcceleration(data);
+    stdev = std(ampdata);
+    skew= skewness(ampdata);
 end
