@@ -3,6 +3,7 @@
 %first step load data
 data= openFilesFromDir('Drink_glass');
 nondata = openFilesNotFromDir('Drink_glass');
+nondata = openFilesFromDir('Comb_Hair');
 size(nondata)
 %% exercise 1
 
@@ -26,19 +27,30 @@ X = getFeatures(training{2}); % example for testing
 
 
 %1.3 feature selection: 
+
 % create feature vector -> for training data set 
-X = cellfun(@getFeatures,training,'UniformOutput',0); % extract features from data 
+X = cellfun(@getFeatures,data,'UniformOutput',0); % extract features from data 
 X = vertcat(X{:}); % convert ugly resulting cellArray to beautiful useful feature Array/vector
 
-% every feature inside this vector is a NX1 double
-% additionally there's a Nx1 double called cylinders which is the group
-% variable
+% creating a group vector
+G = strings(size(X,1),1);
+G(:,1) = 'drink\_glass';
 
-varNames = {'gx'; 'gy'; 'gz'; 'stdev'; 'skewness'; 'F25'; 'F75' };
+X2=cellfun(@getFeatures,nondata,'UniformOutput',0); % extract features from nondata 
+X2 = vertcat(X2{:}); % convert ugly resulting cellArray to beautiful useful feature Array/vector
+
+G2 = strings(size(X2,1),1);
+G2(:,1) = 'comb\_hair';
+
+X= [X;X2];
+G= [G;G2];
+% now we need other samples as well
+
+varNames = {'gx'; 'gy'; 'gz'; 'stdev'; 'skewness'; 'F25'; 'F75'};
 
 % code below doesn't work yet
 %figure
-%gplotmatrix(X,[],Cylinders,['c' 'b' 'm' 'g' 'r'],[],[],false);
+gplotmatrix(X,[],G,['b' 'r'],[],[],false);
 
 %% exercise 2 
 %2.1 cost function and gradient
