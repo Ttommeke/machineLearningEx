@@ -3,8 +3,8 @@
 %first step load data
 data= openFilesFromDir('Drink_glass');
 nondata = openFilesNotFromDir('Drink_glass');
-nondata = openFilesFromDir('Comb_Hair');
-size(nondata)
+%nondata = openFilesFromDir('Comb_hair');
+%size(nondata)
 %% exercise 1
 
 %1.1: preprocessing
