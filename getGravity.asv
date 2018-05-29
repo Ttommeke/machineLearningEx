@@ -1,4 +1,0 @@
-%% load in data first
-function [gx, gy, g] = getGravity(data) % data 3XL array
-    meanAcceleration= mean(data);
-end
