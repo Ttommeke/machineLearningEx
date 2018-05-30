@@ -8,6 +8,7 @@ nondata = openFilesNotFromDir('Drink_glass');
 
 %1.1: preprocessing
 [training,validation,testing]= divideAndConquer(data);
+[trainingFalse,validationFalse,testingFalse]= divideAndConquer(nondata);
 
 %1.2: feature extraction -> this is for one instance in the subfolder, we
 %need to evaluate ALL of the files
@@ -53,44 +54,60 @@ gplotmatrix(X,[],G,['b' 'r'],[],[],'on',[],varNames,varNames);
 
 % best features -> stdev & F25
 
-%% exercise 2 -> allemaal logistic regression
-%2.1 cost function and gradient 
-% sigmoid
-% cost & gradient given h_theta(x) and Y
-% 
-% Tom
 
-%2.2 linear model with 2 features
-% first get a relevant training dataset
-% getting started with the positive data.
-trainingFeatures = cellfun(@getFeatures,training,'UniformOutput',0);
-trainingFeatures = vertcat(trainingFeatures{:});
+%% exercise 2 
+%2.1 cost function and gradient
+% preparing input data and classifier labels
+preparedX = [X(:, [4,6]); X2(:, [4,6])];
+preparedY = [ones(length(X),1); zeros(length(X2),1)];
 
-trainingX= trainingFeatures(:,[4,6]), trainingY= ones(size(trainingX,1),1);
+plottingX = preparedX;
+plottingY = preparedY;
+% note: need to transform this to training data sets later
 
-% then we add the negatvie data 
-% reuse ex2
-% lambda = 0
-% use training dataset to train and validation to check
-% use fminunc
-% Show a figure with the trainings dataset and the linear decision boundary
-%  In this exercise, you will use a built-in function (fminunc) to find the
-%  optimal parameters theta.
+plotData(plottingX, plottingY);
 
-%  Set options for fminunc
+[m, n] = size(preparedX);
+preparedX = [ones(m, 1) preparedX];
+initial_theta = zeros(n + 1, 1);
+
+[cost, grad] = costFunction(initial_theta, preparedX, preparedY);
+fprintf('Cost at initial theta (zeros): %f\n', cost);
+fprintf('Gradient at initial theta (zeros): \n');
+fprintf(' %f \n', grad);
+
 options = optimset('GradObj', 'on', 'MaxIter', 400);
+[theta, cost] = fminunc(@(t)(costFunction(t, preparedX, preparedY)), initial_theta, options);
 
-%  Run fminunc to obtain the optimal theta
-%  This function will return theta and the cost 
-[theta, cost] = fminunc(@(t)(costFunction(t, X, y)), initial_theta, options);
-
-% Print theta to screen
 fprintf('Cost at theta found by fminunc: %f\n', cost);
 fprintf('theta: \n');
 fprintf(' %f \n', theta);
 
 % Plot Boundary
-plotDecisionBoundary(theta, X, y);
+plotDecisionBoundary(theta, preparedX, plottingY);
+
+
+%2.2 linear model with 2 features
+
+%trainingFeatures = cellfun(@getFeatures,training,'UniformOutput',0);
+%trainingFeatures = vertcat(trainingFeatures{:});
+
+%trainingX= trainingFeatures(:,[4,6]), trainingY= ones(size(trainingX,1),1);
+
+%  Set options for fminunc
+%options = optimset('GradObj', 'on', 'MaxIter', 400);
+
+%  Run fminunc to obtain the optimal theta
+%  This function will return theta and the cost 
+%[theta, cost] = fminunc(@(t)(costFunction(t, X, y)), initial_theta, options);
+
+% Print theta to screen
+%fprintf('Cost at theta found by fminunc: %f\n', cost);
+%fprintf('theta: \n');
+%fprintf(' %f \n', theta);
+
+% Plot Boundary
+%plotDecisionBoundary(theta, X, y);
 
 % Chiel
 
