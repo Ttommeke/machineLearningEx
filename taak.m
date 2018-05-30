@@ -29,11 +29,11 @@ X = getFeatures(training{2}); % example for testing
 %1.3 feature selection: 
 
 % create feature vector -> for training data set 
-X = cellfun(@getFeatures,data,'UniformOutput',0); % extract features from data 
-X = vertcat(X{:}); % convert ugly resulting cellArray to beautiful useful feature Array/vector
+singleX = cellfun(@getFeatures,data,'UniformOutput',0); % extract features from data 
+singleX = vertcat(singleX{:}); % convert ugly resulting cellArray to beautiful useful feature Array/vector
 
 % creating a group vector
-G = strings(size(X,1),1);
+G = strings(size(singleX,1),1);
 G(:,1) = 'drink glass';
 
 X2=cellfun(@getFeatures,nondata,'UniformOutput',0); % extract features from nondata 
@@ -42,7 +42,7 @@ X2 = vertcat(X2{:}); % convert ugly resulting cellArray to beautiful useful feat
 G2 = strings(size(X2,1),1);
 G2(:,1) = 'not drink glass';
 
-X= [X;X2];
+X= [singleX;X2];
 G= [G;G2];
 
 % now we need other samples as well
@@ -58,8 +58,8 @@ gplotmatrix(X,[],G,['b' 'r'],[],[],'on',[],varNames,varNames);
 %% exercise 2 
 %2.1 cost function and gradient
 % preparing input data and classifier labels
-preparedX = [X(:, [4,6]); X2(:, [4,6])];
-preparedY = [ones(length(X),1); zeros(length(X2),1)];
+preparedX = [singleX(:, [4,6]); X2(:, [4,6])];
+preparedY = [ones(length(singleX),1); zeros(length(X2),1)];
 
 plottingX = preparedX;
 plottingY = preparedY;
