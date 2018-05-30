@@ -125,16 +125,23 @@ plotDecisionBoundary(theta, selectedTrainingDataX, trainingY);
 
 
 %2.3 polynomial features from 2 features
-selectedTrainingDataX = trainingX(:, [2,4]);
-selectedValidationDataX = validationX(:, [2,4]);
+selectedTrainingDataX = trainingX(:, [1,4]);
+selectedValidationDataX = validationX(:, [1,4]);
 selectedTrainingDataX = mapFeature(selectedTrainingDataX(:, 1), selectedTrainingDataX(:, 2));
 selectedValidationDataX = mapFeature(selectedValidationDataX(:, 1), selectedValidationDataX(:, 2));
 
 [bestTheta, bestLambda, bestAccuracy, lambdaVSTrainingAndValidation] = getBestLambda( selectedTrainingDataX, selectedValidationDataX, trainingY, validationY);
 
-disp(lambdaVSTrainingAndValidation);
-plot(lambdaVSTrainingAndValidation(:,1),lambdaVSTrainingAndValidation(:,2),lambdaVSTrainingAndValidation(:,1),lambdaVSTrainingAndValidation(:,3))
 plotDecisionBoundary(bestTheta, selectedTrainingDataX, trainingY);
+
+selectedTrainingDataX = mapFeature(selectedTrainingDataX(:, 2), selectedTrainingDataX(:, 3));
+[m,n] = size(selectedTrainingDataX);
+initial_theta = zeros(n, 1);
+lambda = 0;
+
+options = optimset('GradObj', 'on', 'MaxIter', 2000);
+[theta, cost, exit_flag] = fminunc(@(t)(costFunctionReg(t, selectedTrainingDataX, trainingY, lambda)), initial_theta, options);
+
 
 %fprintf('Cost at theta found by fminunc: %f\n', cost);
 %fprintf('theta: \n');
