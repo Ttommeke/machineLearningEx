@@ -55,13 +55,10 @@ gplotmatrix(X,[],G,['b' 'r'],[],[],false);
 
 %% exercise 2 
 %2.1 cost function and gradient
-preparedX = [X(:, [4,6]); X2(:, [4,6])];
+preparedX = [X(:, [1,2]); X2(:, [1,2])];
 preparedY = [ones(length(X),1); zeros(length(X2),1)];
 
-plottingX = preparedX;
-plottingY = preparedY;
-
-plotData(plottingX, plottingY);
+plotData(preparedX, preparedY);
 
 [m, n] = size(preparedX);
 preparedX = [ones(m, 1) preparedX];
@@ -80,7 +77,7 @@ fprintf('theta: \n');
 fprintf(' %f \n', theta);
 
 % Plot Boundary
-plotDecisionBoundary(theta, preparedX, plottingY);
+plotDecisionBoundary(theta, preparedX, preparedY);
 
 %2.2 linear model with 2 features
 %2.3 polynomial features from 2 features
