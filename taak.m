@@ -50,7 +50,7 @@ varNames = {'gx'; 'gy'; 'gz'; 'stdev'; 'skewness'; 'F25'; 'F75'};
 
 % plot all features
 close all,figure;
-gplotmatrix(X,[],G,['b' 'r'],[],[],'on',[],varNames,varNames);
+%gplotmatrix(X,[],G,['b' 'r'],[],[],'on',[],varNames,varNames);
 
 % best features -> stdev & F25
 
@@ -58,28 +58,29 @@ gplotmatrix(X,[],G,['b' 'r'],[],[],'on',[],varNames,varNames);
 %% exercise 2 
 %2.1 cost function and gradient
 % preparing input data and classifier labels
-preparedX = [singleX(:, [4,6]); X2(:, [4,6])];
+preparedX = [singleX(:, [1,4]); X2(:, [1,4])];
 preparedY = [ones(length(singleX),1); zeros(length(X2),1)];
 
 plottingX = preparedX;
 plottingY = preparedY;
 % note: need to transform this to training data sets later
 
-plotData(plottingX, plottingY);
+%plotData(plottingX, plottingY);
 
 [m, n] = size(preparedX);
 preparedX = [ones(m, 1) preparedX];
-%%initial_theta = zeros(n + 1, 1);
+initial_theta = zeros(n + 1, 1);
 %%initial_theta = rand(n + 1,1)*5;
-initial_theta = [0;-1;0];
+%%initial_theta = [0;-1;0];
+lambda = 0;
 
-[cost, grad] = costFunction(initial_theta, preparedX, preparedY);
+[cost, grad] = costFunctionReg(initial_theta, preparedX, preparedY, lambda);
 fprintf('Cost at initial theta (zeros): %f\n', cost);
 fprintf('Gradient at initial theta (zeros): \n');
 fprintf(' %f \n', grad);
 
 options = optimset('GradObj', 'on', 'MaxIter', 400);
-[theta, cost] = fminunc(@(t)(costFunction(t, preparedX, preparedY)), initial_theta, options);
+[theta, cost, exit_flag] = fminunc(@(t)(costFunctionReg(t, preparedX, preparedY, 0)), initial_theta, options);
 
 fprintf('Cost at theta found by fminunc: %f\n', cost);
 fprintf('theta: \n');
@@ -115,7 +116,21 @@ plotDecisionBoundary(theta, preparedX, plottingY);
 
 
 %2.3 polynomial features from 2 features
+X = plottingX; y = preparedY;
 
+X = mapFeature(X(:, 1), X(:, 2));
+[m,n] = size(X);
+initial_theta = zeros(n, 1);
+lambda = 0;
+
+options = optimset('GradObj', 'on', 'MaxIter', 2000);
+[theta, cost, exit_flag] = fminunc(@(t)(costFunctionReg(t, X, y, lambda)), initial_theta, options);
+
+%fprintf('Cost at theta found by fminunc: %f\n', cost);
+%fprintf('theta: \n');
+%fprintf(' %f \n', theta);
+
+plotDecisionBoundary(theta, X, y);
 
 %2.4 linear classifier with 7 features
 %2.5 non-linear classifier with 7 features

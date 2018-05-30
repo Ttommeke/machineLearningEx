@@ -21,11 +21,11 @@ if size(X, 2) <= 3
 
     % Plot, and adjust axes for better viewing
     plot(plot_x, plot_y)
-
     
     % Legend, specific for the exercise
     legend('Admitted', 'Not admitted', 'Decision Boundary')
-    else
+    
+else
     % Here is the grid range
     u = linspace(-1, 1.5, 50);
     v = linspace(-1, 1.5, 50);
