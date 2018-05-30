@@ -44,11 +44,11 @@ G2(:,1) = 'not drink glass';
 
 X= [X;X2];
 G= [G;G2];
-% now we need other samples as well
 
+% now we need other samples as well
 varNames = {'gx'; 'gy'; 'gz'; 'stdev'; 'skewness'; 'F25'; 'F75'};
 
-% code below works now
+% plot all features
 close all,figure;
 gplotmatrix(X,[],G,['b' 'r'],[],[],'on',[],varNames,varNames);
 
@@ -69,7 +69,9 @@ plotData(plottingX, plottingY);
 
 [m, n] = size(preparedX);
 preparedX = [ones(m, 1) preparedX];
-initial_theta = zeros(n + 1, 1);
+%%initial_theta = zeros(n + 1, 1);
+%%initial_theta = rand(n + 1,1)*5;
+initial_theta = [0;-1;0];
 
 [cost, grad] = costFunction(initial_theta, preparedX, preparedY);
 fprintf('Cost at initial theta (zeros): %f\n', cost);
