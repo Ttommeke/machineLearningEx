@@ -132,7 +132,6 @@ selectedValidationDataX = mapFeature(selectedValidationDataX(:, 1), selectedVali
 
 [bestTheta, bestLambda, bestAccuracy, lambdaVSTrainingAndValidation] = getBestLambda( selectedTrainingDataX, selectedValidationDataX, trainingY, validationY);
 
-disp(lambdaVSTrainingAndValidation(:,2));
 loglog(lambdaVSTrainingAndValidation(:,1),lambdaVSTrainingAndValidation(:,2),lambdaVSTrainingAndValidation(:,1),lambdaVSTrainingAndValidation(:,3))
 plotDecisionBoundary(bestTheta, selectedTrainingDataX, trainingY);
 
@@ -143,6 +142,26 @@ plotDecisionBoundary(bestTheta, selectedTrainingDataX, trainingY);
 %plotDecisionBoundary(theta, selectedTrainingDataX, trainingY);
 
 %2.4 linear classifier with 7 features
+selectedTrainingDataX = trainingX;
+selectedValidationDataX = validationX;
+
+[bestTheta, bestLambda, bestAccuracy, lambdaVSTrainingAndValidation] = getBestLambda( selectedTrainingDataX, selectedValidationDataX, trainingY, validationY);
+
+loglog(lambdaVSTrainingAndValidation(:,1),lambdaVSTrainingAndValidation(:,2),lambdaVSTrainingAndValidation(:,1),lambdaVSTrainingAndValidation(:,3))
+
+fprintf('non-lineair: hit enter');
+pause;
+
 %2.5 non-linear classifier with 7 features
+selectedTrainingDataX = trainingX;
+selectedValidationDataX = validationX;
+selectedTrainingDataX = x2fx(selectedTrainingDataX,'quadratic');
+selectedValidationDataX = x2fx(selectedValidationDataX,'quadratic');
+
+[bestTheta, bestLambda, bestAccuracy, lambdaVSTrainingAndValidation] = getBestLambda( selectedTrainingDataX, selectedValidationDataX, trainingY, validationY);
+
+size(selectedTrainingDataX)
+loglog(lambdaVSTrainingAndValidation(:,1),lambdaVSTrainingAndValidation(:,2),lambdaVSTrainingAndValidation(:,1),lambdaVSTrainingAndValidation(:,3))
+
 
 
