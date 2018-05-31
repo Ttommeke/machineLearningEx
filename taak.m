@@ -132,8 +132,8 @@ selectedValidationDataX = mapFeature(selectedValidationDataX(:, 1), selectedVali
 
 [bestTheta, bestLambda, bestAccuracy, lambdaVSTrainingAndValidation] = getBestLambda( selectedTrainingDataX, selectedValidationDataX, trainingY, validationY);
 
-disp(lambdaVSTrainingAndValidation);
-plot(lambdaVSTrainingAndValidation(:,1),lambdaVSTrainingAndValidation(:,2),lambdaVSTrainingAndValidation(:,1),lambdaVSTrainingAndValidation(:,3))
+disp(lambdaVSTrainingAndValidation(:,2));
+loglog(lambdaVSTrainingAndValidation(:,1),lambdaVSTrainingAndValidation(:,2),lambdaVSTrainingAndValidation(:,1),lambdaVSTrainingAndValidation(:,3))
 plotDecisionBoundary(bestTheta, selectedTrainingDataX, trainingY);
 
 %fprintf('Cost at theta found by fminunc: %f\n', cost);

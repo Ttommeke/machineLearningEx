@@ -8,13 +8,13 @@ function [bestTheta, bestLambda, bestAccuracy, lambdaVSTrainingAndValidation] = 
     
     lambdaVSTrainingAndValidation = [0,0,0]
     
-    for lambda = linspace(3^(-10),3^10,100)
+    for lambda = logspace(-10,10,100)
         initial_theta = zeros(n, 1);
         
         options = optimset('GradObj', 'on', 'MaxIter', 2000);
         [theta, cost, exit_flag] = fminunc(@(t)(costFunctionReg(t, trainingX, trainingY, lambda)), initial_theta, options);
         
-        accuracy = getAccuracy(trainingX, trainingY, theta);
+        accuracy = getAccuracy(validationX, validationY, theta);
         
         if bestAccuracy > accuracy
             bestAccuracy = accuracy;
